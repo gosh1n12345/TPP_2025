@@ -20,10 +20,18 @@ def search():
     else:
         print("Проверьте корректность названия заметки и введите еще раз")
 def close():
+    with open('Bd.txt', 'w', encoding='UTF-8') as f:
+        f.write(dict_to_str()[:-2])
     print("Вы закрыли заметку ")
     exit()
 def show():
-    name = input("Введите название заметки: ").strip()
+    print(dict_to_str())
+def dict_to_str():
+    str = ""
+    for k, v in data.items():
+       str += f'Название: {k}\n{v}\n_\n'
+    return str
+
 def start_manager():
     with open('Bd.txt', 'r', encoding="UTF-8") as f:
         txt = f.read()
@@ -41,7 +49,7 @@ def interface():
         2 - удалить заметку
         3 - искать заметку
         4 - закрыть заметку
-        5 - показать заметку
+        5 - показать заметки
         Введите номер выбранной команды''')
         ans = input()
         if ans == "1":
@@ -56,7 +64,6 @@ def interface():
             show()
         else:
             print("Вы ввели не то, что я просил. Введите цифру")
-        print(data)
 start_manager()
 interface()
 
